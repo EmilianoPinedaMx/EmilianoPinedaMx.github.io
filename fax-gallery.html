@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galería Retrofuturista 90s</title>
+<style>
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+}
+
+.recuadro {
+    width: 200px;
+    height: 200px;
+    background: #111;
+    border: 3px solid #ff00ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 800px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+.recuadro:hover {
+    transform: rotateY(15deg) rotateX(5deg);
+}
+
+.recuadro img {
+    max-width: 180px;
+    max-height: 180px;
+    transform: rotateY(90deg);
+    opacity: 0;
+    transition: transform 1s, opacity 1s;
+}
+
+.recuadro.flip img {
+    transform: rotateY(0deg);
+    opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<h1>Galería Retrofuturista 90s</h1>
+<div class="grid-container" id="grid-container"></div>
+
+<script>
+const container = document.getElementById('grid-container');
+
+// Lista de imágenes PNG en la carpeta /images
+const images = [
+    'imagen1.png',
+    'imagen2.png',
+    'imagen3.png'
+    // Agrega más PNG aquí
+];
+
+function createBox(imgName, delay) {
+    const box = document.createElement('div');
+    box.className = 'recuadro';
+
+    const img = document.createElement('img');
+    img.src = `images/${imgName}`;
+    box.appendChild(img);
+
+    container.appendChild(box);
+
+    // Animación tipo "fax" con retraso escalonado
+    setTimeout(() => {
+        box.classList.add('flip');
+    }, delay);
+}
+
+// Crear los recuadros dinámicamente
+images.forEach((img, index) => {
+    createBox(img, 1000 + index * 1500);
+});
+</script>
+
+</body>
+</html>
